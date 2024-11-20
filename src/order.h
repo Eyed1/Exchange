@@ -6,17 +6,19 @@ enum Side {
 };
 
 class Order {
+    public:
     int user_id;
     int contract_id;
-
-    public:
     int order_id;
     int timestamp;
     std::string order_type;
 
     Order(int order_id, int user_id, int contract_id, std::string order_type); 
+    Order();
     std::string get_order_type(); 
     int get_timestamp();
+
+    virtual ~Order() {}
 };
 
 class LimitOrder : public Order {

@@ -9,6 +9,8 @@ Order::Order(int order_id, int user_id, int contract_id, std::string order_type)
         this->timestamp = time(0);
         this->order_type = order_type;
 }
+Order::Order() {
+}
 std::string Order::get_order_type() {
         return this->order_type;
 }
@@ -16,7 +18,7 @@ int Order::get_timestamp() {
         return this->timestamp;
 }
 
-LimitOrder::LimitOrder(int order_id, int user_id, int contract_id, int price, int quantity, Side side) : Order(order_id, user_id, contract_id, "Limit") {
+LimitOrder::LimitOrder(int order_id, int user_id, int contract_id, int price, int quantity, Side side) : Order(order_id, user_id, contract_id, "LIMIT") {
         this->price = price;
         this->quantity = quantity;
         this->side = side;
@@ -25,12 +27,12 @@ int LimitOrder::get_price() {
         return this->price;
 }
 
-MarketOrder::MarketOrder(int order_id, int user_id, int contract_id, int quantity, Side side) : Order(order_id, user_id, contract_id, "Market") {
+MarketOrder::MarketOrder(int order_id, int user_id, int contract_id, int quantity, Side side) : Order(order_id, user_id, contract_id, "MARKET") {
         this->quantity = quantity;
         this->side = side;
 }
 
-CancelOrder::CancelOrder(int order_id, int user_id, int contract_id, int cancel_order_id) : Order(order_id, user_id, contract_id, "Cancel") {
+CancelOrder::CancelOrder(int order_id, int user_id, int contract_id, int cancel_order_id) : Order(order_id, user_id, contract_id, "CANCEL") {
         this->cancel_order_id = cancel_order_id;
 }
 
