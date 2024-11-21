@@ -6,16 +6,18 @@
 #include <cassert>
 #include "order.h"
 
-bool compare_buy(LimitOrder& a, LimitOrder& b) {
-    if (a.get_price() == b.get_price()) 
-        return a.get_timestamp() < b.get_timestamp();
-    return a.get_price() > b.get_price();
+const int INFTY = 1e9;
+
+bool compare_buy(const LimitOrder& a, const LimitOrder& b) {
+    if (a.price == b.price) 
+        return a.timestamp< b.timestamp;
+    return a.price > b.price;
 }
 
-bool compare_sell(LimitOrder& a, LimitOrder& b) {
-    if (a.get_price() == b.get_price()) 
-        return a.get_timestamp() < b.get_timestamp();
-    return a.get_price() < b.get_price();
+bool compare_sell(const LimitOrder& a, const LimitOrder& b) {
+    if (a.price == b.price) 
+        return a.timestamp < b.timestamp;
+    return a.price < b.price;
 }
 
 class limit_order_book {
@@ -36,13 +38,30 @@ class limit_order_book {
     }
 
     int get_best_bid() {
+        if (buy_orders.size() == 0)
+            return -INFTY;
         LimitOrder best_bid = *buy_orders.begin();
         return best_bid.get_price();
     }
     int get_best_ask() {
+        if (sell_orders.size() == 0)
+            return INFTY;
         LimitOrder best_ask = *sell_orders.begin();
         return best_ask.get_price();
     }
+    int get_best_bid_size() {
+        if (buy_orders.size() == 0)
+            return 0;
+        LimitOrder best_bid = *buy_orders.begin();
+        return best_bid.quantity;
+    }
+    int get_best_ask_size() {
+        if (sell_orders.size() == 0)
+            return 0;
+        LimitOrder best_ask = *sell_orders.begin();
+        return best_ask.quantity;
+    }
+
     int get_num_bids() {
         return buy_orders.size();
     }
