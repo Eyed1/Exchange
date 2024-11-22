@@ -1,3 +1,7 @@
+#ifndef BOOK_H
+#define BOOK_H
+
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -89,6 +93,7 @@ class limit_order_book {
             sell_orders.insert(order);
         }
         order_map[order.order_id] = order;
+        incr_num_orders();
         return 0;
     }
 
@@ -102,6 +107,7 @@ class limit_order_book {
             sell_orders.erase(order);
         }
         order_map.erase(order_id);
+        incr_num_orders();
         return 0;
     }
 
@@ -121,9 +127,8 @@ class limit_order_book {
             sell_orders.insert(order);
         }
         order_map[order_id] = order;
+        incr_num_orders();
         return 0;
-    
-
     }
 
     LimitOrder get_best_bid_order() {
@@ -134,3 +139,5 @@ class limit_order_book {
         return *sell_orders.begin();
     }
 };
+
+#endif
