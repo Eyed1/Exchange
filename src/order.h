@@ -29,6 +29,16 @@ class log_item {
             this->timestamp = time(0);
         }
 
+        log_item() {
+            this->success = 1;
+            this->message = "Trade";
+            this->buyer_id = -1;
+            this->seller_id = -1;
+            this->price = -1;
+            this->quantity = -1;
+            this->timestamp = time(0);
+        }
+
         std::string to_str() {
             return "Success: " + std::to_string(this->success) + " Message: " + this->message + " Buyer ID: " + std::to_string(this->buyer_id) + " Seller ID: " + std::to_string(this->seller_id) + " Price: " + std::to_string(this->price) + " Quantity: " + std::to_string(this->quantity);
         }
